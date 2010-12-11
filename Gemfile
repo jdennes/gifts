@@ -2,7 +2,7 @@ source :rubygems
 gem 'sinatra', '>= 1.0'
 gem 'rake'
 gem 'rspec', :require => 'spec'
-gem 'data_mapper'
+gem 'data_mapper', '1.0.0'
 gem 'rack-test'
 gem 'dm-core'
 gem 'dm-sqlite-adapter'

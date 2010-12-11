@@ -14,7 +14,7 @@ configure do
   SiteConfig = OpenStruct.new(
                  :title => 'gifts',
                  :author => 'James Dennes',
-                 :url_base => 'http://localhost:4567/',
+                 :url_base => 'http://gifts.johnandsal.com/',
                  :admin_username => "admin",
                  :admin_password => "7649073006b4054c0c445b226ca78cd80166ecc0"
                )
