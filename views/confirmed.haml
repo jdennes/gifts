@@ -1,0 +1,15 @@
+%h1 Confirmed gifts
+
+- if @confirmed and !@confirmed.empty?
+  .info These are gifts which people have confirmed their intention of purchasing, but haven't finalised by clicking the link in the email they were sent.
+  %br
+
+  - @confirmed.each do |gift|
+    .box
+      %a{:href => "/gift/#{gift.id}/edit", :style => "float: right;"}= "edit"
+      %h2= gift.name
+      .description= gift.description
+      .info
+        ="Confirmed by #{gift.intention.name} (#{gift.intention.email})"
+- else
+  %p No gifts currently in a confirmed state.

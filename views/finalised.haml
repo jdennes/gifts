@@ -1,0 +1,14 @@
+%h1 Finalised gifts
+
+- if @finalised and !@finalised.empty?
+  .info These are gifts which people have both confirmed and finalised their intention of purchasing.
+  %br
+
+  - @finalised.each do |gift|
+    .box
+      %h2= gift.name
+      .description= gift.description
+      .info
+        ="Finalised by #{gift.intention.name} (#{gift.intention.email})"
+- else
+  %p No gifts have been both confirmed and finalised.

@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title= @title || SiteConfig.title
+    %link{:href => '/main.css', :rel => 'stylesheet', :type => 'text/css'}
+  %body
+    #container
+      #header
+        %h1
+          %a{:href => '/'}= "gift purchase confirmation thingamajig"
+      - if has_auth?
+        #admin-tools
+          %a{:href => '/gift/new'}= "Add gift"
+          |
+          %a{:href => '/confirmed'}= "Confirmed gifts"
+          |
+          %a{:href => '/finalised'}= "Finalised gifts"
+      #content= yield
+      #footer
+        A thingamajig which allows people to confirm which gifts they're going to purchase for something... 
+        - if !has_auth?
+          %a{:href => '/login'}= "login"
+        - else
+          %a{:href => '/logout'}= "logout"
+        | made with
+        %a{:href => 'http://jdenn.es/', :target => '_blank'} &hearts;
