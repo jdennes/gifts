@@ -1,5 +1,5 @@
 pony
 data_mapper
-dm-postgres-adapter
+dm-sqlite-adapter
 sinatra -v 1.0
 
