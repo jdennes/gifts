@@ -8,6 +8,8 @@
   - @gifts_by_cat.each do |cat, gifts|
     %div{:id => "category-#{cat}"}
       .box{:id => "title-#{cat}", :style => "cursor: pointer;"}
+        .icon
+          %img{:src => "/images/plus.gif"}
         %h3="#{@categories[cat]} gifts"
       .gifts{:style => "display: none;", :id => "gifts-#{cat}"}
         - gifts.each do |gift|
