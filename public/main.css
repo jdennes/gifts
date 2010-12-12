@@ -52,6 +52,7 @@ div.box {
   padding: 6px;
   margin: 6px 0;
   -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
 }
 div.description { margin-bottom: 10px; }
 div#admin-tools {
