@@ -1,0 +1,13 @@
+%h1 Delete gift
+%br
+.box
+  %h2= @gift.name
+  .description= @gift.description
+
+%h3 So, are you sure you want to delete this gift?
+
+%form{:method => 'post', :action => "/gift/#{@gift.id}/delete"}
+  %p
+    %input{:type => 'submit', :value => "Yes, delete it!"}
+    or 
+    %a{:href => "/"} Cancel
