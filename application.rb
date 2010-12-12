@@ -133,9 +133,6 @@ post '/gift/:id/delete/?' do |id|
 end
 
 get '/' do
-  
-  require 'pp'
-  
   @all_gifts = Gift.all(:status => 'available')
   @gifts_by_cat = {}
   @categories = get_categories
@@ -149,10 +146,6 @@ get '/' do
       end
     end
   end
-
-  pp @categories
-  pp @gifts_by_cat
-  
   haml :index
 end
 
