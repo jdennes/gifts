@@ -1,7 +1,7 @@
 %h1 Confirmed gifts
 
 - if @confirmed and !@confirmed.empty?
-  .info These are gifts which people have confirmed their intention of purchasing, but haven't finalised by clicking the link in the email they were sent.
+  .info These are gifts which people have confirmed their intention of purchasing.
   %br
 
   - @confirmed.each do |gift|
@@ -12,4 +12,4 @@
       .info
         ="Confirmed by #{gift.intention.name} (#{gift.intention.email})"
 - else
-  %p No gifts currently in a confirmed state.
+  %p Nobody has confirmed that they are going to purchase any gifts yet. :(

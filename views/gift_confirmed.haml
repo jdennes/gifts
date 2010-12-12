@@ -1,0 +1,11 @@
+%h1= "3. Done! Thanks, #{@gift.intention.name}!"
+.info You've successfully confirmed your intention of purchasing the following gift.
+%br
+.box
+  %h2= @gift.name
+  .description= @gift.description
+%br
+%h3
+  You can confirm your intention of purchasing another
+  %a{:href => '/'}= "gift"
+  ="if you like. :)"

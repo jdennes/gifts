@@ -27,6 +27,5 @@
       %select{:name => 'status'}
         %option{:value => 'available', :selected => @gift.status == 'available'}Available
         %option{:value => 'confirmed', :selected => @gift.status == 'confirmed'}Confirmed
-        %option{:value => 'finalised', :selected => @gift.status == 'finalised'}Finalised
   %p
     %input{:type => 'submit', :value => @gift.new? ? "Add gift" : "Save"}

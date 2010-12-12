@@ -2,7 +2,6 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'environment'
-require 'pony'
 
 configure do
   set :views, "#{File.dirname(__FILE__)}/views"
@@ -17,13 +16,6 @@ helpers do
 
   def has_auth?
       session[:authorised] == true
-  end
-  
-  def build_finalise_email(gift)
-    "Hey #{gift.intention.name}\r\n\r\nThanks for confirming your intention to purchase the \"#{gift.name}\". \
-To finalise your intention, you need to click the link below, or copy and paste it into your browser:\r\n\r\n\
-http://gifts.johnandsal.com/gift/#{gift.id}/finalise/#{gift.intention.token} \r\n\r\n\
-Thank you once again!"
   end
 
   def get_categories
@@ -161,42 +153,20 @@ post '/gift/:id/confirm/?' do |id|
   raise not_found unless @gift
   
   @gift.status = 'confirmed'
-  @token = OpenSSL::Digest::SHA1.new(
-    "#{Time.new}%@*&^!-09#{@gift.id}").hexdigest
   @intention = Intention.new(
     :name => params["name"],
-    :email => params['email'],
-    :token => @token
+    :email => params['email']
   )
   @gift.intention = @intention
   if @gift.save
-    Pony.mail :to => @gift.intention.email,
-              :from => "gifts@johnandsal.com",
-              :subject => "Please finalise your intention to purchase: #{@gift.name}",
-              :body => build_finalise_email(@gift)
-    haml :finalise_gift
+    haml :gift_confirmed
   else
     haml :gift
   end
-end
-
-get '/gift/:id/finalise/:token/?' do |id, token|
-  @gift = Gift.first(:id => id)
-  raise not_found unless (@gift and @gift.status == 'confirmed' and @gift.intention.token == token)
-  @gift.status = 'finalised'
-  @gift.save
-
-  haml :gift_finalised
 end
 
 get '/confirmed' do
   needs_auth
   @confirmed = Gift.all(:status => 'confirmed')
   haml :confirmed
-end
-
-get '/finalised' do
-  needs_auth
-  @finalised = Gift.all(:status => 'finalised')
-  haml :finalised
 end
