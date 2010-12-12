@@ -25,6 +25,11 @@ To finalise your intention, you need to click the link below, or copy and paste 
 http://gifts.johnandsal.com/gift/#{gift.id}/finalise/#{gift.intention.token} \r\n\r\n\
 Thank you once again!"
   end
+
+  def get_categories
+    { "bathroom" => "Bathroom", "bedroom" => "Bedroom", "kitchen" => "Kitchen", "laundry" => 
+      "Laundry", "livingroom" => "Living Room", "outdoor" => "Outdoor" }
+  end
 end
 
 error do
@@ -57,6 +62,7 @@ get '/gift/new/?' do
   needs_auth
 
   @gift = Gift.new(params)
+  @categories = get_categories
   haml :gift_form
 end
 
@@ -66,34 +72,35 @@ post '/gift/new/?' do
   @gift = Gift.new(
     :name => params["name"],
     :description => params["description"],
+    :category => params['category'],
     :status => 'available'
   )
 
   if @gift.save
     redirect "/"
   else
+    @categories = get_categories
     haml :gift_form
   end
 end
 
 get '/gift/:id/edit/?' do |id|
   needs_auth
-  
   @gift = Gift.first(:id => id)
   raise not_found unless @gift
-
+  @categories = get_categories
   haml :gift_form
 end
 
 post '/gift/:id/edit/?' do |id|
   needs_auth
-  
   @gift = Gift.first(:id => id)
   raise not_found unless @gift
 
   @gift.attributes = {
     :name => params["name"],
     :description => params["description"],
+    :category => params['category'],
     :status => params["status"]
   }
 
@@ -103,14 +110,49 @@ post '/gift/:id/edit/?' do |id|
   end
 
   if @gift.save
-    redirect "/"
+    redirect '/'
   else
+    @categories = get_categories
     haml :gift_form
   end
 end
 
+get '/gift/:id/delete/?' do |id|
+  needs_auth
+  @gift = Gift.first(:id => id)
+  raise not_found unless @gift
+  haml :delete_gift
+end
+
+post '/gift/:id/delete/?' do |id|
+  needs_auth
+  @gift = Gift.first(:id => id)
+  raise not_found unless @gift
+  @gift.destroy
+  redirect '/'
+end
+
 get '/' do
-  @gifts = Gift.all(:status => 'available')
+  
+  require 'pp'
+  
+  @all_gifts = Gift.all(:status => 'available')
+  @gifts_by_cat = {}
+  @categories = get_categories
+  @categories.each do |k, v|
+    @all_gifts.each do |g|
+      if g.category == k
+        if !@gifts_by_cat[k]
+          @gifts_by_cat[k] = []
+        end
+        @gifts_by_cat[k] << g
+      end
+    end
+  end
+
+  pp @categories
+  pp @gifts_by_cat
+  
   haml :index
 end
 

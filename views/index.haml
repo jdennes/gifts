@@ -1,14 +1,19 @@
-- if @gifts and !@gifts.empty?
+- if @gifts_by_cat and !@gifts_by_cat.empty?
   %h1 1. Choose a gift
   .info This is a list of gifts you're currently able to confirm your intention of purchasing.
   %br
 
-  - @gifts.each do |gift|
-    .box
-      -if has_auth?
-        %a{:href => "/gift/#{gift.id}/edit", :style => "float: right;"}= "edit"
-      %a{:href => "/gift/#{gift.id}"}
-        %h2= gift.name
-      .description= gift.description
+  - @gifts_by_cat.each do |cat, gifts|
+    .category=@categories[cat]
+    - gifts.each do |gift|
+      .box
+        -if has_auth?
+          %div{:style => "float: right;"}
+            %a{:href => "/gift/#{gift.id}/edit"}= "edit"
+            |
+            %a{:href => "/gift/#{gift.id}/delete"}= "delete"
+        %a{:href => "/gift/#{gift.id}"}
+          %h2= gift.name
+        .description= gift.description
 - else
   %h2 Sadly, there aren't any gifts available right now!

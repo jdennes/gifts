@@ -3,11 +3,12 @@
   %head
     %title= @title || SiteConfig.title
     %link{:href => '/main.css', :rel => 'stylesheet', :type => 'text/css'}
+    %script{:type => "text/javascript", :src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"}
   %body
     #container
       #header
         %h1
-          %a{:href => '/'}= "gift purchase confirmation thingamajig"
+          %a{:href => '/'}= "a gifts thingamajig"
       - if has_auth?
         #admin-tools
           %a{:href => '/gift/new'}= "Add gift"
