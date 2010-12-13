@@ -10,7 +10,7 @@
       %h2= gift.name
       .description= gift.description
       .info
-        - if gift.intention.name
+        - if gift.intention
           ="Confirmed by #{gift.intention.name} (#{gift.intention.email}) on #{gift.intention.created_at.strftime("%d %b, %Y %H:%M:%S (UTC)")}"
         - else
           ="Not confirmed properly..."
