@@ -8,7 +8,7 @@
     #container
       #header
         %h1
-          %a{:href => '/'}= "a gifts thingamajig"
+          %a{:href => '/'}= "john and sally's gifts thingamajig"
       - if has_auth?
         #admin-tools
           %a{:href => '/gift/new'}= "Add gift"
@@ -16,10 +16,8 @@
           %a{:href => '/confirmed'}= "Confirmed gifts"
       #content= yield
       #footer
-        a gifts thingamajig... 
+        some sort of gifts thingamajig... 
         - if !has_auth?
           %a{:href => '/login'}= "login"
         - else
           %a{:href => '/logout'}= "logout"
-        | made with
-        %a{:href => 'http://jdenn.es/', :target => '_blank'} &hearts;

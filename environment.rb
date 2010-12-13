@@ -13,7 +13,6 @@ require 'sinatra' unless defined?(Sinatra)
 configure do
   SiteConfig = OpenStruct.new(
                  :title => 'a gifts thingamajig',
-                 :intro => "<a href=\"http://johnandsal.com\">John and Sally</a> are getting married. You love them and want to get them a gift. They don't want 26 kettles. This thingamajig addresses this. Get started. :)",
                  :author => 'James Dennes',
                  :url_base => 'http://gifts.johnandsal.com/',
                  :admin_username => "admin",

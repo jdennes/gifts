@@ -1,4 +1,16 @@
-%p{:class => 'info'}=SiteConfig.intro
+%p.info
+  %a{:href => "http://johnandsal.com/"}="John and Sally"
+  are getting married! Thanks so much for visiting this site. They are really grateful for any gifts received,
+  which will be extremely useful in setting up their new life together :)
+%p.info
+  Below you'll find some suggestions of engagement and/or wedding gifts, so that they don't end up with 53 toasters
+  and no wooden spoon.
+%p.info
+  Feel free to choose your own style and/or brand if it isn't already specified. If you can't decide on a gift, 
+  there are a few favourite stores listed at the bottom of this page which sell gift vouchers.
+%p.info
+  Once again, thanks so much for your generosity!
+  
 - if @gifts_by_cat and !@gifts_by_cat.empty?
   %script{:type => "text/javascript", :src => "/index.js"}
   %h1 1. Choose a gift
@@ -24,3 +36,13 @@
             .description= gift.description
 - else
   %h2 Sadly, there aren't any gifts available right now!
+
+%p.info
+  Stores which sell gift vouchers: 
+  %a{:href => "http://www.ikea.com/au/", :target => "_blank"}="Ikea"
+  |
+  %a{:href => "http://www.koorong.com.au/", :target => "_blank"}="Koorong"
+  |
+  %a{:href => "http://westfield.com.au/au/", :target => "_blank"}="Westfield"
+  |
+  %a{:href => "http://www.myer.com.au/", :target => "_blank"}="Myer"
