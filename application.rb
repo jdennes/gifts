@@ -125,7 +125,7 @@ post '/gift/:id/delete/?' do |id|
 end
 
 get '/' do
-  @all_gifts = Gift.all(:status => 'available')
+  @all_gifts = Gift.all(:status => 'available', :order => [ :name.asc ])
   @gifts_by_cat = {}
   @categories = get_categories
   @categories.each do |k, v|
@@ -155,7 +155,8 @@ post '/gift/:id/confirm/?' do |id|
   @gift.status = 'confirmed'
   @intention = Intention.new(
     :name => params["name"],
-    :email => params['email']
+    :email => params['email'],
+    :created_at => Time.now.utc
   )
   @gift.intention = @intention
   if @gift.save
@@ -167,6 +168,6 @@ end
 
 get '/confirmed' do
   needs_auth
-  @confirmed = Gift.all(:status => 'confirmed')
+  @confirmed = Gift.all(:status => 'confirmed', :order => [ :name.asc ])
   haml :confirmed
 end
