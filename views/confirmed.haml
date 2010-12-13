@@ -10,6 +10,6 @@
       %h2= gift.name
       .description= gift.description
       .info
-        ="Confirmed by #{gift.intention.name} (#{gift.intention.email})"
+        ="Confirmed by #{gift.intention.name} (#{gift.intention.email}) on #{gift.intention.created_at.strftime("%d %b, %Y %H:%M:%S (UTC)")}"
 - else
   %p Nobody has confirmed that they are going to purchase any gifts yet. :(
