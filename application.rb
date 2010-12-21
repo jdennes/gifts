@@ -157,9 +157,9 @@ post '/gift/:id/confirm/?' do |id|
     :email => params['email'],
     :created_at => Time.now.utc
   )
+  @gift.intention = @intention
   if @intention.valid?
     @gift.status = 'confirmed'
-    @gift.intention = @intention
     if @gift.save
       haml :gift_confirmed
     else
