@@ -152,13 +152,13 @@ post '/gift/:id/confirm/?' do |id|
   @gift = Gift.first(:id => id)
   raise not_found unless @gift
   
-  @gift.status = 'confirmed'
   @intention = Intention.new(
     :name => params["name"],
     :email => params['email'],
     :created_at => Time.now.utc
   )
   if @intention.valid?
+    @gift.status = 'confirmed'
     @gift.intention = @intention
     if @gift.save
       haml :gift_confirmed

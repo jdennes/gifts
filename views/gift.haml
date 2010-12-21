@@ -1,31 +1,39 @@
-%script{:type => "text/javascript"}
-  $(document).ready(function() { $("form :input:visible:enabled:first").focus(); });
+- if @gift.status != 'available'
+  %h1 Sorry, you can't get this gift
+  %br
+  %h3
+    Someone's already confirmed their intention of purchasing this gift, you'll need to 
+    %a{:href => '/'}
+      choose another.
+  
+- else
+  %script{:type => "text/javascript"}
+    $(document).ready(function() { $("form :input:visible:enabled:first").focus(); });
 
-%h1 2. Confirm your intention to purchase
-.info This is the gift you're about to confirm your intention of purchasing.
-%br
-.box
-  %a{:href => "/gift/#{@gift.id}"}
+  %h1 2. Confirm your intention to purchase
+  .info This is the gift you're about to confirm your intention of purchasing.
+  %br
+  .box
     %h2= @gift.name
-  .description= @gift.description
-%br
-%h3 Enter your name and email address below
-.info These details are just required so we can contact you if we need to. We will never do anything evil with these details. :)
+    .description= @gift.description
+  %br
+  %h3 Enter your name and email address below
+  .info These details are just required so we can contact you if we need to. We will never do anything evil with these details. :)
 
-.box
-  - if @intention.errors.length > 0
-    %ul{:class => 'errors'}
-      - @intention.errors.each do |error|
-        %li= error
+  .box
+    - if @intention.errors.length > 0
+      %ul{:class => 'errors'}
+        - @intention.errors.each do |error|
+          %li= error
 
-  %form{:method => 'post', :action => "/gift/#{@gift.id}/confirm"}
-    %p
-      %label{:for => 'name'}Name:
-      %br
-      %input{:type => 'text', :name => 'name', :size => 60, :value => @intention.name}
-    %p
-      %label{:for => 'email'}Email:
-      %br
-      %input{:type => 'text', :name => 'email', :size => 60, :value => @intention.email}
-    %p
-      %input{:type => 'submit', :value => "Confirm"}
+    %form{:method => 'post', :action => "/gift/#{@gift.id}/confirm"}
+      %p
+        %label{:for => 'name'}Name:
+        %br
+        %input{:type => 'text', :name => 'name', :size => 60, :value => @intention.name}
+      %p
+        %label{:for => 'email'}Email:
+        %br
+        %input{:type => 'text', :name => 'email', :size => 60, :value => @intention.email}
+      %p
+        %input{:type => 'submit', :value => "Confirm"}
